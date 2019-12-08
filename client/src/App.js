@@ -13,7 +13,7 @@ function App() {
     cache: 'default'
   };
 
-  fetch('http://localhost:8080/get', myInit)
+  fetch('http://localhost:49160/get', myInit)
     .then(response => response.json())
     .then(res => {
       console.log(res);
@@ -43,3 +43,5 @@ function App() {
 }
 
 export default App;
+
+// docker run -p 49160:8080 -d node-web-app
