@@ -5,9 +5,13 @@
   "author": "First Last <first.last@example.com>",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "start:dev": "node server.js 4000"
   },
   "dependencies": {
     "express": "^4.16.1"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^3.9.0"
   }
 }
