@@ -28,7 +28,7 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <p>
-          TEST
+          TEST PROVA
         </p>
         <a
           className="App-link"
@@ -44,3 +44,8 @@ function App() {
 }
 
 export default App;
+
+// cd client
+// docker run --name client_5 -i -d -v ${PWD}:/srv/app client /bin/bash
+// docker exec -w /srv/app client_1 npm install
+// docker exec -w /srv/app client_1 npm start

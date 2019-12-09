@@ -8,7 +8,7 @@ setup_client() {
     cd client
 
     docker build -t $NAME_CLIENT_IMAGE .
-    docker run --name $NAME_CLIENT_CONTAINER $NAME_CLIENT_IMAGE
+    docker run --name $NAME_CLIENT_CONTAINER -v  $NAME_CLIENT_IMAGE
 
     cd ..
 }
@@ -60,8 +60,22 @@ restart() {
     start_client
 }
 
+remove_client() {
+    docker rm -f $NAME_CLIENT_CONTAINER
+    docker rmi -f $NAME_CLIENT_IMAGE
+}
+remove_server() {
+    docker rm -f $NAME_SERVER_CONTAINER
+    docker rmi -f $NAME_SERVER_IMAGE
+}
+remove_all() {
+    remove_server
+    remove_client
+}
+
 print_help() {
     echo "Command line to make easy the work in this project"
+    echo "-d remove server and client container and image of docker"
     echo "-h list of available commands"
     echo "-i initialize the environmnet creating and running docker container for client and server"
     echo "-r restart client and server container"
@@ -76,6 +90,10 @@ fi
 while [ -n "$1" ]; do # while loop starts
 
     case "$1" in
+
+    -d)
+        remove_all
+        ;;
 
     -h)
         print_help
