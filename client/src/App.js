@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  console.log("APP");
 
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
@@ -43,5 +44,3 @@ function App() {
 }
 
 export default App;
-
-// docker run -p 49160:8080 -d node-web-app

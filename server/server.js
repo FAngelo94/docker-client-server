@@ -26,3 +26,5 @@ app.get('/', (req, res) => {
 
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
+
+//docker run -p 49160:8080 -d node-web-app

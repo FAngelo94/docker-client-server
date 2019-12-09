@@ -1,11 +1,11 @@
 FROM node:12.13
 
 # Create app directory and use it as the working directory
-RUN mkdir -p /srv/app/fr-shohin-admin-client
+RUN mkdir -p /srv/app
 
-COPY . /srv/app/fr-shohin-admin-client
+COPY . /srv/app
 
-WORKDIR /srv/app/fr-shohin-admin-client
+WORKDIR /srv/app
 
 RUN npm install
 
