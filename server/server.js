@@ -21,7 +21,7 @@ app.get('/get/', (req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  res.send('Ciao mondo\n');
+  res.send('Ciao mondo as\n');
 });
 
 app.listen(PORT, HOST);
