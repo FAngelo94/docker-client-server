@@ -8,7 +8,9 @@ setup_client() {
     cd client
 
     docker build -t $NAME_CLIENT_IMAGE .
-    docker run --name $NAME_CLIENT_CONTAINER -v  $NAME_CLIENT_IMAGE
+    docker run --name $NAME_CLIENT_CONTAINER -i -d -v ${PWD}:/srv/app $NAME_CLIENT_IMAGE
+    docker exec -w /srv/app $NAME_CLIENT_CONTAINER npm install
+    docker exec -w /srv/app $NAME_CLIENT_CONTAINER npm start
 
     cd ..
 }
@@ -17,7 +19,9 @@ setup_server() {
     cd server
 
     docker build -t $NAME_SERVER_IMAGE .
-    docker run --name $NAME_SERVER_CONTAINER -p 49160:8080 -d $NAME_SERVER_IMAGE
+    docker run --name $NAME_SERVER_CONTAINER -p 49160:8080 -i -d -v ${PWD}:/srv/app $NAME_SERVER_IMAGE /bin/bash
+    docker exec -w /srv/app -d $NAME_SERVER_CONTAINER npm install
+    docker exec -w /srv/app -d $NAME_SERVER_CONTAINER npm start
 
     cd ..
 }
@@ -42,7 +46,8 @@ stop_client() {
 }
 start_client() {
     echo "Running client container"
-    docker start -i $NAME_CLIENT_CONTAINER
+    docker start $NAME_CLIENT_CONTAINER
+    docker exec -w /srv/app $NAME_CLIENT_CONTAINER npm start
 }
 stop_server() {
     echo "Stopping server container"
@@ -51,6 +56,7 @@ stop_server() {
 start_server() {
     echo "Running server container"
     docker start $NAME_SERVER_CONTAINER
+    docker exec -w /srv/app -d $NAME_SERVER_CONTAINER npm start
 }
 
 restart() {

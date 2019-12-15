@@ -28,7 +28,7 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <p>
-          TEST PROVA
+          TEST PROVA js
         </p>
         <a
           className="App-link"
