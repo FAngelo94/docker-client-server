@@ -48,3 +48,8 @@ function App() {
 }
 
 export default App;
+
+// cd client
+// docker run --name client_5 -i -d -v ${PWD}:/srv/app client /bin/bash
+// docker exec -w /srv/app client_1 npm install
+// docker exec -w /srv/app client_1 npm start
