@@ -3,22 +3,26 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  console.log("APP");
 
-  const myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-  const myInit =
-  {
-    method: 'GET',
-    headers: myHeaders,
-    cache: 'default'
-  };
+  const [message, changeMessage] = React.useState('no message');
 
-  fetch('http://localhost:49160/get', myInit)
-    .then(response => response.json())
-    .then(res => {
-      console.log(res);
-    });
+  React.useEffect(() => {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    const myInit =
+    {
+      method: 'GET',
+      headers: myHeaders,
+      cache: 'default'
+    };
+
+    fetch('http://localhost:49160/get', myInit)
+      .then(response => response.json())
+      .then(res => {
+        console.log(res);
+        changeMessage(res.prova)
+      });
+  }, [])
 
   return (
     <div className="App">
@@ -28,7 +32,7 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <p>
-          TEST
+          Message from the server = {message}
         </p>
         <a
           className="App-link"
