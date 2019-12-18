@@ -1,6 +1,7 @@
 import subprocess
 import os
 import sys
+import platform
 
 NAME_CLIENT_IMAGE = "client_image"
 NAME_CLIENT_CONTAINER = "client_container"
@@ -8,11 +9,12 @@ NAME_CLIENT_CONTAINER = "client_container"
 NAME_SERVER_IMAGE = "server_image"
 NAME_SERVER_CONTAINER = "server_container"
 
+URL = '%cd%' if platform.system() == 'Windows' else '${PWD}'
+
 def setup_client():
     os.chdir('client/')
     os.system('docker build -t ' + NAME_CLIENT_IMAGE + ' .')
-    os.system(
-        'docker run --name ' + NAME_CLIENT_CONTAINER + ' -i -d -v ${PWD}:/srv/app ' + NAME_CLIENT_IMAGE + '')
+    os.system('docker run --name ' + NAME_CLIENT_CONTAINER + ' -i -d -v ' + URL + ':/srv/app -p 3000:3000 ' + NAME_CLIENT_IMAGE + '')
     os.system('docker exec -w /srv/app ' + NAME_CLIENT_CONTAINER + ' npm install')
     os.system('docker exec -w /srv/app ' + NAME_CLIENT_CONTAINER + ' npm start')
     os.chdir('../')
@@ -21,7 +23,7 @@ def setup_server():
     os.chdir('server/')
     os.system('docker build -t ' + NAME_SERVER_IMAGE + ' .')
     os.system(
-        'docker run --name ' + NAME_SERVER_CONTAINER + ' -p 49160:8080 -i -d -v ${PWD}:/srv/app ' + NAME_SERVER_IMAGE + ' /bin/bash')
+        'docker run --name ' + NAME_SERVER_CONTAINER + ' -p 49160:8080 -i -d -v ' + URL + ':/srv/app ' + NAME_SERVER_IMAGE + ' /bin/bash')
     os.system('docker exec -w /srv/app -d ' + NAME_SERVER_CONTAINER + ' npm install')
     os.system('docker exec -w /srv/app -d ' + NAME_SERVER_CONTAINER + ' npm start')
     os.chdir('../')
