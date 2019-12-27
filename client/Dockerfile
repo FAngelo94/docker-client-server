@@ -1,5 +1,3 @@
 FROM node:12.13
 
-# Create app directory and use it as the working directory
-
 CMD ["/bin/bash"]
