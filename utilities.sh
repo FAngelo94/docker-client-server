@@ -8,7 +8,7 @@ setup_client() {
     cd client
 
     docker build -t $NAME_CLIENT_IMAGE .
-    docker run --name $NAME_CLIENT_CONTAINER -i -d -v ${PWD}:/srv/app $NAME_CLIENT_IMAGE
+    docker run --name $NAME_CLIENT_CONTAINER -i -d -v ${PWD}:/srv/app -p 3000:3000 $NAME_CLIENT_IMAGE
     docker exec -w /srv/app $NAME_CLIENT_CONTAINER npm install
     docker exec -w /srv/app $NAME_CLIENT_CONTAINER npm start
 
